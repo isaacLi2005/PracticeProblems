@@ -1,53 +1,47 @@
 #include <iostream>
 #include <array>
+#include <algorithm>
 
 int main() {
     int n {};
     int k {};
 
-    const int constN {n};
-
     std::cin >> n >> k;
 
-    std::array<int, constN> children = {};
-
+    int* children = new int[n];
     for (int i = 0; i < n; i++) {
         std::cin >> children[i];
     }
+    std::sort(children, children + n);
 
-    int count {0};
+
     int heaviestChildIndex {n-1};
+    int lightestChildIndex {0};
+    int count {0};
+    int heaviestChildWeight {};
+    int lightestChildWeight {};
 
-    int heaviestWeight {};
-    int weightRemaining {};
-
-    int secondHeaviestIndex {};
-    int secondHeaviestWeight {};
-
-    while (heaviestChildIndex >= 0) {
-        if (children[heaviestChildIndex] == -1) {
-            heaviestChildIndex--;
-            continue;
-        }
-        heaviestWeight = children[heaviestChildIndex];
-        children[heaviestChildIndex] = -1;
-        weightRemaining = k - heaviestWeight;
-
-        secondHeaviestIndex = heaviestChildIndex - 1;
-        while (secondHeaviestIndex >= 0) {
-            secondHeaviestWeight = children[secondHeaviestIndex];
-            if (secondHeaviestWeight == -1) {
-                secondHeaviestIndex--;
-                continue;
-            } else if (secondHeaviestWeight <= weightRemaining) {
-                children[secondHeaviestWeight] = -1;
-                break;
+    while (heaviestChildIndex >= lightestChildIndex) {
+        if (heaviestChildIndex == lightestChildIndex) {
+            count++;
+            break;
+        } else {
+            heaviestChildWeight = children[heaviestChildIndex];
+            lightestChildWeight = children[lightestChildIndex];
+            if (lightestChildWeight + heaviestChildWeight <= k) {
+                lightestChildIndex++;
             }
+            
+            heaviestChildIndex--;
+            count++;
         }
-        count++;
+
     }
 
-    std::cout << count;
+
+    delete[] children;
+
+    std::cout << count << "\n";
 
     return 0;
 }
