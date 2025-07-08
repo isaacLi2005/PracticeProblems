@@ -1,0 +1,12 @@
+# Ignore object files
+*.o
+*.obj
+
+# Ignore compiled binaries
+*.out
+*.exe
+*.app
+
+# Optional: ignore build and bin folders
+build/
+bin/
