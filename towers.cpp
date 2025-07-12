@@ -1,12 +1,12 @@
 #include <iostream>
 #include <algorithm>
-#include <multiset>
-#include <array>
+#include <set>
+#include <vector>
 
 int main() {
     size_t n;
     std::cin >> n;
-    std::array<size_t> blocks(n);
+    std::vector<size_t> blocks(n);
     std::multiset<size_t> towerTops {};
 
     for (size_t i = 0; i < n; i++) {
@@ -15,12 +15,13 @@ int main() {
 
     for (size_t i = 0; i < n; i++) {
         auto largestBlockTopIt = towerTops.upper_bound(blocks[i]);
-        if (largestBlockTopIt == towerTops.end()) {
-            towerTops.add
+        if (largestBlockTopIt != towerTops.end()) {
+            towerTops.erase(largestBlockTopIt);
         }
+        towerTops.insert(blocks[i]);
     }
 
+    std::cout << towerTops.size() << std::endl;
 
-
-    return 0
+    return 0;
 }
