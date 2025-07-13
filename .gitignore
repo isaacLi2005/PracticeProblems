@@ -10,3 +10,5 @@
 # Optional: ignore build and bin folders
 build/
 bin/
+/executables/
+/pastOptiver/
