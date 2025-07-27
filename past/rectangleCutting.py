@@ -29,11 +29,6 @@ def helper(rows, cols):
     return result
 """
 
-def noneMin(a, b):
-    if a == None:
-        return b
-    else:
-        return(min(a,b))
 
 for rows in range(1, a+1):
     for cols in range(1, b+1):
@@ -43,11 +38,11 @@ for rows in range(1, a+1):
         result = rows * cols * 2 + 1
         for rowSplit in range(1, (rows // 2)+1):
             lowerHeight = rows - rowSplit
-            result = noneMin(result, memo[rowSplit][cols] + memo[lowerHeight][cols])
+            result = min(result, memo[rowSplit][cols] + memo[lowerHeight][cols])
         
         for colSplit in range(1, (cols // 2)+1):
             leftWidth = cols - colSplit
-            result = noneMin(result, memo[rows][colSplit] + memo[rows][leftWidth])
+            result = min(result, memo[rows][colSplit] + memo[rows][leftWidth])
 
         result += 1
         memo[rows][cols] = result
